@@ -1,0 +1,66 @@
+[
+  {
+    "isbn": "148410",
+    "author": "J.K. Rowling",
+    "title": "Harry Potter and the Philosopher's Stone",
+    "reviews": [
+      {
+        "userName": "sam",
+        "comment": "This book is amazing! I loved it.",
+        "rating": 5
+      },
+      {
+        "userName": "John",
+        "comment": "Great story, but a bit slow-paced.",
+        "rating": 4
+      }
+    ]
+  },
+  {
+    "isbn": "7378",
+    "author": "J.R.R. Tolkien",
+    "title": "The Lord of the Rings",
+    "reviews": [
+      {
+        "userName": "Mike",
+        "comment": "A classic! One of the best books I've ever read.",
+        "rating": 5
+      }
+    ]
+  },
+  {
+    "isbn": "316",
+    "author": "George R.R. Martin",
+    "title": "A Game of Thrones",
+    "reviews": []
+  },
+  {
+    "isbn": "21906",
+    "author": "Stephen King",
+    "title": "The Shining",
+    "reviews": [
+      {
+        "userName": "sam",
+        "comment": "A chilling tale that will keep you up all night.",
+        "rating": 5
+      },
+      {
+        "userName": "John",
+        "comment": "Great story, but a bit slow-paced.",
+        "rating": 4
+      }
+    ]
+  },
+  {
+    "isbn": "28423",
+    "author": "George Orwell",
+    "title": "1984",
+    "reviews": [
+      {
+        "userName": "min",
+        "comment": "A chilling and thought-provoking dystopian novel.",
+        "rating": 5
+      }
+    ]
+  }
+]
