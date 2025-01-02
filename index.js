@@ -1,6 +1,7 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const session = require("express-session");
+
 const bookRouter = require("./routes/books.js");
 const reviewRouter = require("./routes/review.js");
 
@@ -42,24 +43,31 @@ app.use(
 
 app.use(express.json());
 
-// Middleware to authenticate requests to "/friends" endpoint
-app.use("/books", function auth(req, res, next) {
-  //   Check if user is logged in and has valid access token
-  //   if (req.session.authorization) {
-  //     let token = req.session.authorization["accessToken"];
-  //     // Verify JWT token
-  //     jwt.verify(token, "access", (err, user) => {
-  //       if (!err) {
-  //         req.user = user;
-  //         next(); // Proceed to the next middleware
-  //       } else {
-  //         return res.status(403).json({ message: "User not authenticated" });
-  //       }
-  //     });
-  //   } else {
-  //     return res.status(403).json({ message: "User not logged in" });
-  //   }
-  next();
+// Middleware to authenticate requests to "/books" endpoint
+app.use("/books", async (req, res, next) => {
+  console.log("calling books methods", req.sessionID);
+  try {
+    // Check if user is logged in and has a valid access token
+    if (req.session.authorization) {
+      const token = req.session.authorization["accessToken"];
+
+      // Verify JWT token
+      jwt.verify(token, "access", (err, user) => {
+        if (err) {
+          return res.status(403).json({ message: "User not authenticated" });
+        }
+
+        req.user = user;
+        next(); // Proceed to the next middleware
+      });
+    } else {
+      return res.status(403).json({ message: "User not logged in" });
+    }
+  } catch (error) {
+    // Catch any unexpected errors
+    console.error(error);
+    return res.status(500).json({ message: "An unexpected error occurred" });
+  }
 });
 
 app.get("/users", (req, res) => {
@@ -84,8 +92,7 @@ app.post("/login", (req, res) => {
       {
         data: password,
       },
-      "access",
-      { expiresIn: "1d" }
+      "access"
     );
 
     // Store access token and username in session
@@ -93,6 +100,7 @@ app.post("/login", (req, res) => {
       accessToken,
       username,
     };
+
     return res.status(200).send("User successfully logged in");
   } else {
     return res
